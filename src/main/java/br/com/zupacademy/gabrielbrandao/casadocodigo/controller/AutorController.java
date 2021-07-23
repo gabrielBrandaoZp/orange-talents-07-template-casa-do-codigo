@@ -1,8 +1,8 @@
 package br.com.zupacademy.gabrielbrandao.casadocodigo.controller;
 
-import br.com.zupacademy.gabrielbrandao.casadocodigo.controller.form.AlunoForm;
-import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Aluno;
-import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.AlunoRepository;
+import br.com.zupacademy.gabrielbrandao.casadocodigo.controller.form.AutorForm;
+import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Autor;
+import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.AutorRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,20 +13,20 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/alunos")
-public class AlunoController {
+@RequestMapping("/autores")
+public class AutorController {
 
-    private AlunoRepository repository;
+    private AutorRepository repository;
 
-    public AlunoController(AlunoRepository repository) {
+    public AutorController(AutorRepository repository) {
         this.repository = repository;
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> cadastrar(@RequestBody @Valid AlunoForm alunoForm) {
-        Aluno aluno = alunoForm.converter();
-        repository.save(aluno);
+    public ResponseEntity<Void> cadastrar(@RequestBody @Valid AutorForm autorForm) {
+        Autor autor = autorForm.converter();
+        repository.save(autor);
         return ResponseEntity.ok().build();
     }
 
