@@ -1,14 +1,15 @@
 package br.com.zupacademy.gabrielbrandao.casadocodigo.controller.form;
 
 
-import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.CategoriaUnica;
+import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Categoria;
+import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.CampoUnico;
 
 import javax.validation.constraints.NotBlank;
 
 public class CategoriaForm {
 
     @NotBlank
-    @CategoriaUnica
+    @CampoUnico(domainClass = Categoria.class, fieldName = "nome")
     private String nome;
 
     public String getNome() {
