@@ -10,12 +10,17 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    @Column(unique = true)
     private String email;
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
     private LocalDateTime dataCriacao;
+
+    @Deprecated
+    public Autor() {}
 
     public Autor(String nome, String email, String descricao) {
         this.nome = nome;

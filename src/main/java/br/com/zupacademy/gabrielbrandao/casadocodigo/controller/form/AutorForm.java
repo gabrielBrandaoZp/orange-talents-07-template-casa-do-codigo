@@ -1,6 +1,7 @@
 package br.com.zupacademy.gabrielbrandao.casadocodigo.controller.form;
 
 import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Autor;
+import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.EmailUnico;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ public class AutorForm {
 
     @NotBlank
     @Email
+    @EmailUnico
     private String email;
 
     @NotBlank
