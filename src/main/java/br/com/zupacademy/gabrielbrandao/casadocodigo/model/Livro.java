@@ -3,6 +3,7 @@ package br.com.zupacademy.gabrielbrandao.casadocodigo.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Livro {
@@ -57,5 +58,37 @@ public class Livro {
 
     public String getTitulo() {
         return titulo;
+    }
+
+    public String getSumario() {
+        return sumario;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public Integer getNumPaginas() {
+        return numPaginas;
+    }
+
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public String getDataFormatada(String estilo) {
+        return dataLancamento.format(DateTimeFormatter.ofPattern("dd/MM/yyy"));
     }
 }

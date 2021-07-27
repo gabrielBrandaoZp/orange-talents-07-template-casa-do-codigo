@@ -7,7 +7,6 @@ import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.AutorRepository;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.CategoriaRepository;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.CampoUnico;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.ExisteId;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
