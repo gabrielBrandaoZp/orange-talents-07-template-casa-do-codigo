@@ -27,6 +27,6 @@ public class ValidadorExisteId implements ConstraintValidator<ExisteId, Object> 
         query.setParameter("value", value);
 
         List<?> result = query.getResultList();
-        return result.size() > 0;
+        return !result.isEmpty();
     }
 }
