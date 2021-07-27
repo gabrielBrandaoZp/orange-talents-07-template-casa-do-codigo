@@ -35,6 +35,9 @@ public class Livro {
 
     private Integer numPaginas;
 
+    @Deprecated
+    public Livro() {}
+
     public Livro(String titulo, String resumo, String sumario, BigDecimal preco, Integer numPaginas, String isbn, LocalDate dataLancamento,
                  Categoria categoria, Autor autor) {
         this.titulo = titulo;
@@ -46,5 +49,13 @@ public class Livro {
         this.dataLancamento = dataLancamento;
         this.categoria = categoria;
         this.autor = autor;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
     }
 }
