@@ -7,6 +7,7 @@ import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Pais;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.EstadoRepository;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.PaisRepository;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.CampoUnico;
+import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.CpfCnpj;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.EstadoPais;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.ExisteId;
 
@@ -31,6 +32,7 @@ public class ClienteCadastroForm {
 
     @NotBlank
     @CampoUnico(domainClass = Cliente.class, fieldName = "documento")
+    @CpfCnpj
     private String documento;
 
     @NotBlank
