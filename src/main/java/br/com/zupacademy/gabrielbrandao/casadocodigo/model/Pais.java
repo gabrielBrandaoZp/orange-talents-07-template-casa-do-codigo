@@ -26,4 +26,8 @@ public class Pais {
     public void adicionaEstado(Estado estado) {
         this.estados.add(estado);
     }
+
+    public boolean temEstados() {
+        return !estados.isEmpty();
+    }
 }
