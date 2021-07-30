@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("paises")
+@RequestMapping("/paises")
 public class PaisController {
 
     private PaisRepository repository;

@@ -3,6 +3,7 @@ package br.com.zupacademy.gabrielbrandao.casadocodigo.controller.form;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Autor;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Categoria;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Livro;
+import br.com.zupacademy.gabrielbrandao.casadocodigo.model.builder.LivroBuilder;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.AutorRepository;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.CategoriaRepository;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.CampoUnico;
@@ -68,7 +69,17 @@ public class LivroForm {
         @NotNull Autor autor = autorObj.get();
         @NotNull Categoria categoria = categoriaObj.get();
 
-        return new Livro(this.titulo, this.resumo, this.sumario, this.preco, this.numPaginas, this.isbn, this.dataLancamento, categoria, autor);
+        return new LivroBuilder()
+                .comTitulo(this.titulo)
+                .comResumo(this.resumo)
+                .comSumario(this.sumario)
+                .comPreco(this.preco)
+                .comNumPaginas(this.numPaginas)
+                .comIsbn(this.isbn)
+                .comDataLancamento(this.dataLancamento)
+                .comCategoria(categoria)
+                .comAutor(autor)
+                .constroi();
     }
 
 }

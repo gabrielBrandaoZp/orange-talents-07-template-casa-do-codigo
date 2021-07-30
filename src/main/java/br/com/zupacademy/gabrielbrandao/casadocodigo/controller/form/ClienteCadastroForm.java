@@ -4,12 +4,12 @@ package br.com.zupacademy.gabrielbrandao.casadocodigo.controller.form;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Cliente;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Estado;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.model.Pais;
+import br.com.zupacademy.gabrielbrandao.casadocodigo.model.builder.ClienteBuilder;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.EstadoRepository;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.PaisRepository;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.CampoUnico;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.CpfCnpj;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.EstadoPais;
-import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.ExisteId;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -73,9 +73,19 @@ public class ClienteCadastroForm {
     public Cliente converter(PaisRepository paisRepository, EstadoRepository estadoRepository) {
         Optional<Pais> paisObj = paisRepository.findById(this.paisId);
         @NotNull Pais pais = paisObj.get();
-
-        Cliente cliente = new Cliente(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento,
-                this.cidade, pais, this.telefone, this.cep);
+        
+        Cliente cliente = new ClienteBuilder()
+                .comEmail(this.email)
+                .comNome(this.nome)
+                .comSobrenome(this.sobrenome)
+                .comDocumento(this.documento)
+                .comEndereco(this.endereco)
+                .comComplemento(this.complemento)
+                .comCidade(this.cidade)
+                .comPais(pais)
+                .comTelefone(this.telefone)
+                .comCep(this.cep)
+                .constroi();
 
         if(estadoId != null) {
             Optional<Estado> estadoObj = estadoRepository.findByIdAndPaisId(this.estadoId, this.paisId);
