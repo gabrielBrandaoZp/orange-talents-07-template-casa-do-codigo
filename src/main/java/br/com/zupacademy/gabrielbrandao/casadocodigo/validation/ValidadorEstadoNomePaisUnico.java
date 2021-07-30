@@ -19,6 +19,13 @@ public class ValidadorEstadoNomePaisUnico implements ConstraintValidator<EstadoN
     @Override
     public boolean isValid(EstadoForm value, ConstraintValidatorContext context) {
         Optional<Estado> objEstado = estadoRepository.findByNomeAndPaisId(value.getNome(), value.getPaisId());
-        return !objEstado.isPresent();
+        if(objEstado.isPresent()) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("Estado já existe")
+                    .addPropertyNode("nome")
+                    .addConstraintViolation();
+        }
+
+        return objEstado.isEmpty();
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/estados")
@@ -28,9 +29,13 @@ public class EstadoController {
     @PostMapping
     @Transactional
     public ResponseEntity<Void> cadastrar(@RequestBody @Valid EstadoForm estadoForm) {
-        Estado estado = estadoForm.converter(paisRepository);
-        repository.save(estado);
-        return ResponseEntity.ok().build();
+        Optional<Estado> estadoObj = estadoForm.converter(paisRepository);
+        if(estadoObj.isPresent()) {
+            repository.save(estadoObj.get());
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 
 

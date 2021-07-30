@@ -8,6 +8,7 @@ import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.AutorRepository;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.CategoriaRepository;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.CampoUnico;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.ExisteId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -38,6 +39,7 @@ public class LivroForm {
 
     @NotNull
     @Future
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate dataLancamento;
 
     @ExisteId(domainClass = Categoria.class, fieldName = "id")
@@ -49,27 +51,35 @@ public class LivroForm {
     @NotBlank
     private String sumario;
 
-    public LivroForm(String titulo, String resumo, BigDecimal preco, Integer numPaginas, String isbn, LocalDate dataLancamento,
+    public LivroForm(String titulo, String resumo, BigDecimal preco, Integer numPaginas, String isbn,
                      Long categoriaId, Long autorId, String sumario) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.preco = preco;
         this.numPaginas = numPaginas;
         this.isbn = isbn;
-        this.dataLancamento = dataLancamento;
         this.categoriaId = categoriaId;
         this.autorId = autorId;
         this.sumario = sumario;
     }
 
-    public Livro converter(AutorRepository autorRepository, CategoriaRepository categoriaRepository) {
+    /*
+       O método foi criado para que seja possível desserializar a data com o pattern passado dd/MM/yyyy,
+       sem ele não é possível.
+     */
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
+
+    public Optional<Livro> converter(AutorRepository autorRepository, CategoriaRepository categoriaRepository) {
         Optional<Autor> autorObj = autorRepository.findById(this.autorId);
         Optional<Categoria> categoriaObj = categoriaRepository.findById(this.categoriaId);
 
-        @NotNull Autor autor = autorObj.get();
-        @NotNull Categoria categoria = categoriaObj.get();
+        Autor autor = autorObj.get();
+        Categoria categoria = categoriaObj.get();
 
-        return new LivroBuilder()
+        return Optional.of(
+                new LivroBuilder()
                 .comTitulo(this.titulo)
                 .comResumo(this.resumo)
                 .comSumario(this.sumario)
@@ -79,7 +89,7 @@ public class LivroForm {
                 .comDataLancamento(this.dataLancamento)
                 .comCategoria(categoria)
                 .comAutor(autor)
-                .constroi();
+                .constroi());
     }
 
 }

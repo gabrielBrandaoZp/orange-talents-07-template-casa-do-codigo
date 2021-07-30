@@ -50,8 +50,12 @@ public class LivroController {
     @PostMapping
     @Transactional
     public ResponseEntity<Void> cadastrar(@RequestBody @Valid LivroForm livroForm) {
-        Livro livro = livroForm.converter(autorRepository, categoriaRepository);
-        repository.save(livro);
-        return ResponseEntity.ok().build();
+        Optional<Livro> livroObj = livroForm.converter(autorRepository, categoriaRepository);
+        if(livroObj.isPresent()) {
+            repository.save(livroObj.get());
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 }

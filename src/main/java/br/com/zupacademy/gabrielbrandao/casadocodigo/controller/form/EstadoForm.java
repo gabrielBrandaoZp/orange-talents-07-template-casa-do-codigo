@@ -23,12 +23,15 @@ public class EstadoForm {
         this.paisId = paisId;
     }
 
-    public Estado converter(PaisRepository paisRepository) {
+    public Optional<Estado> converter(PaisRepository paisRepository) {
         Optional<Pais> objPais = paisRepository.findById(paisId);
-        @NotBlank Pais pais = objPais.get();
-        Estado estado = new Estado(nome, pais);
-        pais.adicionaEstado(estado);
-        return estado;
+        if(objPais.isPresent()) {
+            Pais pais = objPais.get();
+            Estado estado = new Estado(nome, pais);
+            return Optional.of(estado);
+        }
+
+        return Optional.empty();
     }
 
     public String getNome() {
