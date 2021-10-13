@@ -9,6 +9,7 @@ import br.com.zupacademy.gabrielbrandao.casadocodigo.repository.CategoriaReposit
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.CampoUnico;
 import br.com.zupacademy.gabrielbrandao.casadocodigo.validation.ExisteId;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -17,37 +18,46 @@ import java.util.Optional;
 
 public class LivroForm {
 
+    @ApiModelProperty(position = 1, example = "Clean code", required = true)
     @NotBlank
     @CampoUnico(domainClass = Livro.class, fieldName = "titulo")
     private String titulo;
 
+    @ApiModelProperty(position = 2, example = "Some random resume", required = true)
     @NotBlank
     @Size(max = 500)
     private String resumo;
 
+    @ApiModelProperty(position = 3, example = "59.90", required = true)
     @NotNull
     @Min(20)
     private BigDecimal preco;
 
+    @ApiModelProperty(position = 4, example = "455", required = true)
     @NotNull
     @Min(100)
     private Integer numPaginas;
 
+    @ApiModelProperty(position = 5, example = "321323-678", required = true)
     @NotBlank
     @CampoUnico(domainClass = Livro.class, fieldName = "isbn")
     private String isbn;
 
+    @ApiModelProperty(position = 6, example = "20/02/1990", required = true)
     @NotNull
     @Future
     @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate dataLancamento;
 
+    @ApiModelProperty(position = 7, example = "1", required = true)
     @ExisteId(domainClass = Categoria.class, fieldName = "id")
     private Long categoriaId;
 
+    @ApiModelProperty(position = 8, example = "1", required = true)
     @ExisteId(domainClass = Autor.class, fieldName = "id")
     private Long autorId;
 
+    @ApiModelProperty(position = 9, example = "Some random summary", required = true)
     @NotBlank
     private String sumario;
 
@@ -92,4 +102,39 @@ public class LivroForm {
                 .constroi());
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public Integer getNumPaginas() {
+        return numPaginas;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public Long getCategoriaId() {
+        return categoriaId;
+    }
+
+    public Long getAutorId() {
+        return autorId;
+    }
+
+    public String getSumario() {
+        return sumario;
+    }
 }
